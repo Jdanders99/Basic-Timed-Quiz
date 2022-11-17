@@ -2,6 +2,10 @@
 var startBtn = document.getElementById('start');
 var seconds = 60;
 var timeEl = document.getElementById('time');
+var startScreen = document.getElementById('start-page');
+var endScreen = document.getElementById('end-page');
+var answersEl = document.getElementById('answers');
+var questionEl = document.getElementById('question');
 
 var questions = [
     {question:'Which of the following elements is not an html element?', answers:['span', 'div', 'h7', 'body'], correctAnswer: 2},
@@ -13,6 +17,9 @@ var questions = [
 
 startBtn.addEventListener('click', function() {
     setTime();
+    startScreen.setAttribute('class', 'hidden');
+    questionEl.removeAttribute('class');
+    displayQ();
 });
 
 function setTime() {
@@ -24,6 +31,27 @@ var timerInterval = setInterval(function() {
     }
 
     }, 1000);
+}
+
+var questionNumber = 0;
+
+function displayQ() {
+    
+    var questionInfo = questions[questionNumber];
+    var questionOne = document.getElementById('question-one');
+
+    questionOne.textContent = questionInfo.question;
+    answersEl.innerHTML = '';
+
+    for (var i = 0; i < questionInfo.answers.length; i++) {
+        var answer = questionInfo.answers[i];
+        var ansButton = document.createElement('button');
+        ansButton.setAttribute('class', 'answers');
+        ansButton.setAttribute('value', answer);
+
+        ansButton.textContent = i + 1 + ". " + answer;
+        answersEl.appendChild(ansButton);
+    }
 }
 
 // Click the start button, timer starts and user is presented with a question
