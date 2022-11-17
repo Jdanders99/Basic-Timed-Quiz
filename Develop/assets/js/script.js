@@ -8,11 +8,11 @@ var answersEl = document.getElementById('answers');
 var questionEl = document.getElementById('question');
 
 var questions = [
-    {question:'Which of the following elements is not an html element?', answers:['span', 'div', 'h7', 'body'], correctAnswer: 2},
-    {question:'Which of the following would you use to create an array?', answers:['<>', '[]', '{}', '()'], correctAnswer: 1},
-    {question:'How many different header tags can you make?', answers:['2', '3', '5', '6'], correctAnswer: 3},
-    {question:'What is the correct term for true/false statements?', answers:['boolean', 'string', 'numbers', 'span'], correctAnswer: 0},
-    {question:'What can you do if you dont understand this?', answers:['Google', 'Tutor', 'Phone a friend', 'All of the Above'], correctAnswer: 3}
+    {question:'Which of the following elements is not an html element?', answers:['span', 'div', 'h7', 'body'], correctAnswer: 'h7'},
+    {question:'Which of the following would you use to create an array?', answers:['< >', '[ ]', '{ }', '( )'], correctAnswer: '[ ]'},
+    {question:'How many different header tags can you make?', answers:['2', '3', '5', '6'], correctAnswer: '6'},
+    {question:'What is the correct term for true/false statements?', answers:['boolean', 'string', 'numbers', 'span'], correctAnswer: 'boolean'},
+    {question:'What can you do if you dont understand this?', answers:['Google', 'Tutor', 'Phone a friend', 'All of the Above'], correctAnswer: 'All of the Above'}
 ];
 
 startBtn.addEventListener('click', function() {
@@ -54,11 +54,36 @@ function displayQ() {
     }
 }
 
-// Click the start button, timer starts and user is presented with a question
+answersEl.onclick = answerQ;
 
-// Answering a question, leads to the next question
+function answerQ (event) {
+    var buttonEl = event.target;
 
-// Answer incorrectly, subtracts time from the timer
+    if (buttonEl.value !== questions[questionNumber].correctAnswer) {
+        seconds -= 10;
+        timeEl.textContent = seconds;
+    }
+
+    if (seconds < 0) {
+        seconds = 0;
+    }
+
+    questionNumber++;
+
+    if(seconds <= 0 || questionNumber === questions.length) {
+        endPage()
+    } else {
+        displayQ();
+    }
+};
+
+
+
+// Click the start button, timer starts and user is presented with a question - check
+
+// Answering a question, leads to the next question - check
+
+// Answer incorrectly, subtracts time from the timer - check
 
 // Game is over after all questions or timer hits 0
 
