@@ -6,6 +6,7 @@ var startScreen = document.getElementById('start-page');
 var endScreen = document.getElementById('end-page');
 var answersEl = document.getElementById('answers');
 var questionEl = document.getElementById('question');
+var timer;
 
 var questions = [
     {question:'Which of the following elements is not an html element?', answers:['span', 'div', 'h7', 'body'], correctAnswer: 'h7'},
@@ -15,6 +16,14 @@ var questions = [
     {question:'What can you do if you dont understand this?', answers:['Google', 'Tutor', 'Phone a friend', 'All of the Above'], correctAnswer: 'All of the Above'}
 ];
 
+startBtn.addEventListener('click', function() {
+    var timer = setInterval(setTime, 1000);
+    timeEl.textContent = seconds;
+    startScreen.setAttribute('class', 'hidden');
+    questionEl.removeAttribute('class');
+    displayQ();
+});
+
 function setTime() {
     seconds--;
     timeEl.textContent = seconds;
@@ -23,14 +32,6 @@ function setTime() {
         endPage();
     }
 }
-
-startBtn.addEventListener('click', function() {
-    var countdown = setInterval(setTime, 1000);
-    timeEl.textContent = seconds;
-    startScreen.setAttribute('class', 'hidden');
-    questionEl.removeAttribute('class');
-    displayQ();
-});
 
 var questionNumber = 0;
 
@@ -79,7 +80,9 @@ function answerQ (event) {
 function endPage() {
     questionEl.setAttribute('class', 'hidden');
     endScreen.removeAttribute('class');
-    clearInterval(countdown);
+    clearInterval(timer);
+    timeEl.textContent = seconds;
+    seconds = 1
 }
 
 // Click the start button, timer starts and user is presented with a question - check
@@ -88,6 +91,6 @@ function endPage() {
 
 // Answer incorrectly, subtracts time from the timer - check
 
-// Game is over after all questions or timer hits 0
+// Game is over after all questions or timer hits 0 - check
 
 // When game is over, you can save name and final score
