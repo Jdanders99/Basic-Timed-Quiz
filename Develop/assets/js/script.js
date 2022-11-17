@@ -15,23 +15,22 @@ var questions = [
     {question:'What can you do if you dont understand this?', answers:['Google', 'Tutor', 'Phone a friend', 'All of the Above'], correctAnswer: 'All of the Above'}
 ];
 
+function setTime() {
+    seconds--;
+    timeEl.textContent = seconds;
+
+    if (seconds <= 0) {
+        endPage();
+    }
+}
+
 startBtn.addEventListener('click', function() {
-    setTime();
+    var countdown = setInterval(setTime, 1000);
+    timeEl.textContent = seconds;
     startScreen.setAttribute('class', 'hidden');
     questionEl.removeAttribute('class');
     displayQ();
 });
-
-function setTime() {
-var timerInterval = setInterval(function() {
-    seconds--;
-    timeEl.textContent = seconds
-    if (seconds === 0) {
-        clearInterval(timerInterval);
-    }
-
-    }, 1000);
-}
 
 var questionNumber = 0;
 
@@ -64,7 +63,7 @@ function answerQ (event) {
         timeEl.textContent = seconds;
     }
 
-    if (seconds < 0) {
+    if (seconds <= 0) {
         seconds = 0;
     }
 
@@ -77,7 +76,11 @@ function answerQ (event) {
     }
 };
 
-
+function endPage() {
+    questionEl.setAttribute('class', 'hidden');
+    endScreen.removeAttribute('class');
+    clearInterval(countdown);
+}
 
 // Click the start button, timer starts and user is presented with a question - check
 
