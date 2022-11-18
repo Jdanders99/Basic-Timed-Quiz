@@ -8,6 +8,8 @@ var answersEl = document.getElementById('answers');
 var questionEl = document.getElementById('question');
 var timer;
 var correct = 0
+var submit = document.getElementById('submit');
+userInput = document.getElementById('names');
 
 var questions = [
     {question:'Which of the following elements is not an html element?', answers:['span', 'div', 'h7', 'body'], correctAnswer: 'h7'},
@@ -92,6 +94,23 @@ function endPage() {
     var total = getElementById('total');
     total.innerHTML = correct;
 }
+
+function highScore() {
+    var input = userInput.value;
+    if (input !== '') {
+        var highscores = 
+            JSON.parse(window.localStorage.getItem('highscores'));
+        
+        var userObject = {
+            Score: correct,
+            Name: input,
+        }
+        highscores.push(userObject);
+        window.location.href = 'highscores.html';
+    }
+}
+
+
 
 // Click the start button, timer starts and user is presented with a question - check
 
