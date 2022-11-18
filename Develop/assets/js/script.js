@@ -8,7 +8,7 @@ var answersEl = document.getElementById('answers');
 var questionEl = document.getElementById('question');
 var timer;
 var correct = 0
-var submit = document.getElementById('submit');
+var submitBtn = document.getElementById('submit');
 userInput = document.getElementById('names');
 
 var questions = [
@@ -92,7 +92,7 @@ function endPage() {
     seconds = 1
 
     var total = getElementById('total');
-    total.innerHTML = correct;
+    total.textContent = correct;
 }
 
 function highScore() {
@@ -110,6 +110,8 @@ function highScore() {
     }
 }
 
+submitBtn.addEventListener('click', highScore());
+submitBtn.onlick = highScore;
 
 
 // Click the start button, timer starts and user is presented with a question - check
