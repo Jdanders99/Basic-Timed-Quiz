@@ -7,6 +7,7 @@ var endScreen = document.getElementById('end-page');
 var answersEl = document.getElementById('answers');
 var questionEl = document.getElementById('question');
 var timer;
+var correct = 0
 
 var questions = [
     {question:'Which of the following elements is not an html element?', answers:['span', 'div', 'h7', 'body'], correctAnswer: 'h7'},
@@ -63,6 +64,10 @@ function answerQ (event) {
         seconds -= 10;
         timeEl.textContent = seconds;
     }
+    
+    if (buttonEl.value === questions[questionNumber].correctAnswer) {
+        correct++;
+    }
 
     if (seconds <= 0) {
         seconds = 0;
@@ -83,6 +88,9 @@ function endPage() {
     clearInterval(timer);
     timeEl.textContent = seconds;
     seconds = 1
+
+    var total = getElementById('total');
+    total.innerHTML = correct;
 }
 
 // Click the start button, timer starts and user is presented with a question - check
